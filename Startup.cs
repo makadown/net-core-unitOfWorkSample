@@ -12,6 +12,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+using unitOfWorkSample.Core;
 using unitOfWorkSample.Helpers;
 using unitOfWorkSample.Persistence;
 
@@ -43,6 +44,8 @@ namespace unitOfWorkSample
                    opt.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
                 );
             services.AddCors();
+            services.AddScoped<IClientesRepository, ClienteRepository>();
+            services.AddTransient<IUnitOfWork, UnitOfWork>();
             // services.AddScoped<IAuthLogic, AuthLogic>();
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)

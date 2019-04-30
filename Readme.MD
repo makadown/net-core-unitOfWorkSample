@@ -3,6 +3,9 @@
 Ejercicio de implementacion de patron Unit Of Work.
 Base de datos mySQL.
 
+Kudos a:
+https://anexsoft.com/implementacion-de-unit-of-work-services-y-repository-con-net-core-2-2
+
 ## Creación de proyecto
 
 dotnet new webapi

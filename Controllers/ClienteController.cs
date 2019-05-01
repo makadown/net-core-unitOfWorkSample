@@ -2,9 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using unitOfWorkSample.Core.Models;
 using Microsoft.AspNetCore.Mvc;
 using unitOfWorkSample.Core;
-using unitOfWorkSample.Core.Models;
 
 namespace unitOfWorkSample.Controllers {
     [Route ("api/[controller]")]

@@ -5,7 +5,7 @@ Base de datos mySQL.
 Ese branch es basado en otro enfoque de uow
 
 Kudos a:
-https://www.codeproject.com/Articles/1157241/Very-Thin-Database-Layer-using-UnitOfWork-Pattern
+https://ngohungphuc.wordpress.com/2018/05/02/unit-of-work-pattern-in-asp-net-core/
 
 ## Creación de proyecto
 

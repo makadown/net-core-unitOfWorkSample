@@ -9,5 +9,5 @@ namespace unitOfWorkSample.Core {
 		Task<int> Commit();
 
 		void Rollback();
-	}
+	}   
 }

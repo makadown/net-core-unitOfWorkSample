@@ -1,65 +1,46 @@
-using Microsoft.EntityFrameworkCore.Storage;
+using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using unitOfWorkSample.Core;
 
 namespace unitOfWorkSample.Persistence
 {
-    public class UnitOfWork: IUnitOfWork
-    {
-        private readonly MySqlContext _context;
-        public UnitOfWork(IUnitOfWorkRepository repository) 
-        {
-            this.Repository = repository;
-               
-        }
-        public IUnitOfWorkRepository Repository { get; }
+    public class UnitOfWork : IUnitOfWork
+	{
+		private readonly MySqlContext _dbContext;
+		private readonly Dictionary<Type, object> _repositories = new Dictionary<Type, object>();
 
-        public UnitOfWork(MySqlContext context
-        )
-        {
-            _context = context;
-            Repository = new UnitOfWorkRepository(_context);
-        }
+		public Dictionary<Type, object> Repositories
+		{
+			get { return _repositories; }
+			set { Repositories = value; }
+		}
 
-        #region Detect Changes
-        public void DetectChanges()
-        {
-            _context.ChangeTracker.DetectChanges();
-        }
-        #endregion
+		public UnitOfWork(MySqlContext dbContext)
+		{
+			_dbContext = dbContext;
+		}
 
-        #region Save Changes
-        public void SaveChanges()
-        {
-            _context.SaveChanges();
-        }
+		public IGenericRepository<T> Repository<T>() where T : class
+		{
+			if (Repositories.Keys.Contains(typeof(T)))
+			{
+				return Repositories[typeof(T)] as IGenericRepository<T>;
+			}
 
-        public async Task SaveChangesAsync()
-        {
-            await _context.SaveChangesAsync();
-        }
-        #endregion
+			IGenericRepository<T> repo = new GenericRepository<T>(_dbContext);
+			Repositories.Add(typeof(T), repo);
+			return repo;
+		}
 
-        #region Transactions
-        public IDbContextTransaction BeginTransaction()
-        {
-            return _context.Database.BeginTransaction();
-        }
+		public async Task<int> Commit()
+		{
+			return await _dbContext.SaveChangesAsync();
+		}
 
-        public async Task<IDbContextTransaction> BeginTransactionAsync()
-        {
-            return await _context.Database.BeginTransactionAsync();
-        }
-
-        public void CommitTransaction()
-        {
-            _context.Database.CommitTransaction();
-        }
-
-        public void RollbackTransaction()
-        {
-            _context.Database.RollbackTransaction();
-        }
-        #endregion
-    }
+		public void Rollback()
+		{
+			_dbContext.ChangeTracker.Entries().ToList().ForEach(x => x.Reload());
+		}
+	}
 }

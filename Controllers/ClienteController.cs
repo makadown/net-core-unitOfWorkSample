@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using unitOfWorkSample.Core;
+using unitOfWorkSample.Core.Models;
 
 namespace unitOfWorkSample.Controllers {
     [Route ("api/[controller]")]
@@ -17,7 +18,8 @@ namespace unitOfWorkSample.Controllers {
 
         [HttpGet]
         public ActionResult<IEnumerable<string>> GetAll () {
-            return Ok(_uow.Repository.ClienteRepository.GetAll());
+            return Ok(_uow.Repository<Clientes>().GetAll());
+            // return Ok(_uow.Repository.ClienteRepository.GetAll());
         }
 
         // GET api/values/5

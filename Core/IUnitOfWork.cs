@@ -1,21 +1,13 @@
-using Microsoft.EntityFrameworkCore.Storage;
+using System;
 using System.Threading.Tasks;
 
-namespace unitOfWorkSample.Core
-{
-    /// <Summary>
-    /// Esta es la interfaz "principal" que se usaria.
-    /// </Summary>
+namespace unitOfWorkSample.Core {
     public interface IUnitOfWork
-    {
-        void DetectChanges();
-        void SaveChanges();
-        Task SaveChangesAsync();
-        IDbContextTransaction BeginTransaction();
-        Task<IDbContextTransaction> BeginTransactionAsync();
-        void CommitTransaction();
-        void RollbackTransaction();
+	{
+		IGenericRepository<T> Repository<T>() where T : class;
 
-        IUnitOfWorkRepository Repository { get; }
-    }
+		Task<int> Commit();
+
+		void Rollback();
+	}
 }

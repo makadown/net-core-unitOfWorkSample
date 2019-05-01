@@ -2,9 +2,10 @@
 
 Ejercicio de implementacion de patron Unit Of Work.
 Base de datos mySQL.
+Ese branch es basado en otro enfoque de uow
 
 Kudos a:
-https://anexsoft.com/implementacion-de-unit-of-work-services-y-repository-con-net-core-2-2
+https://www.codeproject.com/Articles/1157241/Very-Thin-Database-Layer-using-UnitOfWork-Pattern
 
 ## Creación de proyecto
 

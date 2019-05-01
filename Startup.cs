@@ -44,7 +44,7 @@ namespace unitOfWorkSample
                    opt.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
                 );
             services.AddCors();
-            services.AddScoped<IClientesRepository, ClienteRepository>();
+            services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
             services.AddTransient<IUnitOfWork, UnitOfWork>();
             // services.AddScoped<IAuthLogic, AuthLogic>();
 

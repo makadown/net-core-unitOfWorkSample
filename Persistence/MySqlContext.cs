@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
+using unitOfWorkSample.Core;
 using unitOfWorkSample.Core.Models;
 
 namespace unitOfWorkSample.Persistence
@@ -16,10 +18,11 @@ namespace unitOfWorkSample.Persistence
         {
         }
 
-        public virtual DbSet<Clientes> Clientes { get; set; }
+        public virtual DbSet<Clientes> Clientes { get; set; }       
+
         // Si por ejemplo quiero usar vistas puedo usar DbQuery
 
-        
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Clientes>(entity =>
